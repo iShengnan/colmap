@@ -46,6 +46,13 @@ option(HIP_ENABLED "Whether to enable AMD GPU support via HIP/ROCm" OFF)
 if(HIP_ENABLED)
     cmake_minimum_required(VERSION 3.21)
 endif()
+
+if(CUDA_ENABLED AND HIP_ENABLED)
+    message(FATAL_ERROR
+        "CUDA_ENABLED and HIP_ENABLED are mutually exclusive. "
+        "Please enable only one GPU backend.")
+endif()
+
 option(ONNX_ENABLED "Whether to enable ONNX, if available" ON)
 option(GUI_ENABLED "Whether to enable the graphical UI" ON)
 option(MVS_ENABLED "Whether to enable the Multi-View Stereo module" ON)
